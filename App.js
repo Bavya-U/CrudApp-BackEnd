@@ -1,10 +1,11 @@
 import express from "express";
 import connectDB from "./database/db.js";
 import userRouter from "./Router/userRouter.js";
+import cors from "cors"
 
 const app = express();
 const PORT = 5000;
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRouter)
