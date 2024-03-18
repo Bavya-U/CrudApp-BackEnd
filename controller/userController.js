@@ -38,10 +38,23 @@ export const getSingleUser = async(req, res) => {
 }
 // 3. Update user Router
 
-export const updateUser = (req, res) => {
-    res.status(200).json({ message: "update user Route" });
+export const updateUser = async(req, res) => {
+   try {
+       const { id } = req.params;
+       const user = req.body;
+       const updateduser = await userModal.findByIdAndUpdate(id, user, { new: true, });
+       res.status(500).json({updateduser})
+   } catch (error) {
+    res.status(500).json({ error: error.message })
+   }
 }
 // 4. Delete user Router
-export const deleteUser = (req, res) => {
-    res.status(200).json({ message: "delete user Route" });
+export const deleteUser = async(req, res) => {
+try {
+    const { id } = req.params;
+    await userModal.findByIdAndDelete(id);
+    res.status(200).json({message:"user deleted successfully"})
+} catch (error) {
+    res.status(500).json({ error: error.message })
+}
 }
