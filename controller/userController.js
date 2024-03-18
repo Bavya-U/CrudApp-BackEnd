@@ -17,13 +17,24 @@ export const addUser = async(req, res) => {
 // 2. Get user Router
 //    1. Get All user
 
-export const getAllUser = (req, res) => {
-    res.status(200).json({ message: "get all user Route" });
+export const getAllUser = async(req, res) => {
+   try {
+       const Alluser = await userModal.find();
+       res.status(200).json(Alluser);
+   } catch (error) {
+    res.status(500).json({ error: error.message })
+   }
 }
 
 //    2. Get Single user
-export const getSingleUser = (req, res) => {
-    res.status(200).json({ message: "get single user Route" });
+export const getSingleUser = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await userModal.findById(id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
 }
 // 3. Update user Router
 
