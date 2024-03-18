@@ -1,9 +1,13 @@
 import express from "express";
 import connectDB from "./database/db.js";
+import userRouter from "./Router/userRouter.js";
 
 const app = express();
 const PORT = 5000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/api/user", userRouter)
 app.get("/", (req, res) => {
     res.send("server started !")
 })
